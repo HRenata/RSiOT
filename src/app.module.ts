@@ -7,8 +7,12 @@ import { RecipesModule } from './recipes/recipes.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: ':memory:',
+      type: 'postgres',
+      host: 'localhost',
+      database: 'postgres',
+      username: 'postgres',
+      password: 'admin',
+      port: 5432,
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
