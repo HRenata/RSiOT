@@ -1,0 +1,1282 @@
+{
+    "components": {
+        "schemas": {
+            "CreateManyMedicineDto": {
+                "properties": {
+                    "bulk": {
+                        "items": {
+                            "$ref": "#/components/schemas/Medicine"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "bulk"
+                ],
+                "type": "object"
+            },
+            "CreateManyPatientDto": {
+                "properties": {
+                    "bulk": {
+                        "items": {
+                            "$ref": "#/components/schemas/Patient"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "bulk"
+                ],
+                "type": "object"
+            },
+            "CreateManyRecipeDto": {
+                "properties": {
+                    "bulk": {
+                        "items": {
+                            "$ref": "#/components/schemas/Recipe"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "bulk"
+                ],
+                "type": "object"
+            },
+            "GetManyMedicineResponseDto": {
+                "properties": {
+                    "count": {
+                        "type": "number"
+                    },
+                    "data": {
+                        "items": {
+                            "$ref": "#/components/schemas/Medicine"
+                        },
+                        "type": "array"
+                    },
+                    "page": {
+                        "type": "number"
+                    },
+                    "pageCount": {
+                        "type": "number"
+                    },
+                    "total": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "data",
+                    "count",
+                    "total",
+                    "page",
+                    "pageCount"
+                ],
+                "type": "object"
+            },
+            "GetManyPatientResponseDto": {
+                "properties": {
+                    "count": {
+                        "type": "number"
+                    },
+                    "data": {
+                        "items": {
+                            "$ref": "#/components/schemas/Patient"
+                        },
+                        "type": "array"
+                    },
+                    "page": {
+                        "type": "number"
+                    },
+                    "pageCount": {
+                        "type": "number"
+                    },
+                    "total": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "data",
+                    "count",
+                    "total",
+                    "page",
+                    "pageCount"
+                ],
+                "type": "object"
+            },
+            "GetManyRecipeResponseDto": {
+                "properties": {
+                    "count": {
+                        "type": "number"
+                    },
+                    "data": {
+                        "items": {
+                            "$ref": "#/components/schemas/Recipe"
+                        },
+                        "type": "array"
+                    },
+                    "page": {
+                        "type": "number"
+                    },
+                    "pageCount": {
+                        "type": "number"
+                    },
+                    "total": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "data",
+                    "count",
+                    "total",
+                    "page",
+                    "pageCount"
+                ],
+                "type": "object"
+            },
+            "Medicine": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name"
+                ],
+                "type": "object"
+            },
+            "Patient": {
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "surname": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "surname"
+                ],
+                "type": "object"
+            },
+            "Recipe": {
+                "properties": {
+                    "medicine": {
+                        "type": "number"
+                    },
+                    "patient": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "medicine",
+                    "patient"
+                ],
+                "type": "object"
+            }
+        }
+    },
+    "info": {
+        "contact": {},
+        "description": "The cats API description",
+        "title": "Cats example",
+        "version": "1.0"
+    },
+    "openapi": "3.0.0",
+    "paths": {
+        "/medicines": {
+            "get": {
+                "operationId": "getManyBaseMedicinesControllerMedicine",
+                "parameters": [
+                    {
+                        "description": "Selects resource fields. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#select\" target=\"_blank\">Docs</a>",
+                        "explode": false,
+                        "in": "query",
+                        "name": "fields",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds search condition. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#search\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "s",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Adds filter condition. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#filter\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "filter",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds OR condition. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#or\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "or",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds sort by field. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#sort\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "sort",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds relational resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#join\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "join",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Limit amount of resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#limit\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Offset amount of resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#offset\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "offset",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Page portion of resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#page\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Reset cache (if was enabled). <a href=\"https://github.com/nestjsx/crud/wiki/Requests#cache\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "cache",
+                        "required": false,
+                        "schema": {
+                            "maximum": 1,
+                            "minimum": 0,
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/GetManyMedicineResponseDto"
+                                        },
+                                        {
+                                            "items": {
+                                                "$ref": "#/components/schemas/Medicine"
+                                            },
+                                            "type": "array"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "description": "Get many base response"
+                    }
+                },
+                "summary": "Retrieve multiple Medicines"
+            },
+            "post": {
+                "operationId": "createOneBaseMedicinesControllerMedicine",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Medicine"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Medicine"
+                                }
+                            }
+                        },
+                        "description": "Get create one base response"
+                    }
+                },
+                "summary": "Create a single Medicine"
+            }
+        },
+        "/medicines/bulk": {
+            "post": {
+                "operationId": "createManyBaseMedicinesControllerMedicine",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateManyMedicineDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Medicine"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": "Get create many base response"
+                    }
+                },
+                "summary": "Create multiple Medicines"
+            }
+        },
+        "/medicines/{id}": {
+            "delete": {
+                "operationId": "deleteOneBaseMedicinesControllerMedicine",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete one base response"
+                    }
+                },
+                "summary": "Delete a single Medicine"
+            },
+            "get": {
+                "operationId": "getOneBaseMedicinesControllerMedicine",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "description": "Selects resource fields. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#select\" target=\"_blank\">Docs</a>",
+                        "explode": false,
+                        "in": "query",
+                        "name": "fields",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds relational resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#join\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "join",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Reset cache (if was enabled). <a href=\"https://github.com/nestjsx/crud/wiki/Requests#cache\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "cache",
+                        "required": false,
+                        "schema": {
+                            "maximum": 1,
+                            "minimum": 0,
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Medicine"
+                                }
+                            }
+                        },
+                        "description": "Get one base response"
+                    }
+                },
+                "summary": "Retrieve a single Medicine"
+            },
+            "patch": {
+                "operationId": "updateOneBaseMedicinesControllerMedicine",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Medicine"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Medicine"
+                                }
+                            }
+                        },
+                        "description": "Response"
+                    }
+                },
+                "summary": "Update a single Medicine"
+            },
+            "put": {
+                "operationId": "replaceOneBaseMedicinesControllerMedicine",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Medicine"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Medicine"
+                                }
+                            }
+                        },
+                        "description": "Response"
+                    }
+                },
+                "summary": "Replace a single Medicine"
+            }
+        },
+        "/patients": {
+            "get": {
+                "operationId": "getManyBasePatientsControllerPatient",
+                "parameters": [
+                    {
+                        "description": "Selects resource fields. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#select\" target=\"_blank\">Docs</a>",
+                        "explode": false,
+                        "in": "query",
+                        "name": "fields",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds search condition. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#search\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "s",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Adds filter condition. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#filter\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "filter",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds OR condition. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#or\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "or",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds sort by field. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#sort\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "sort",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds relational resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#join\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "join",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Limit amount of resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#limit\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Offset amount of resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#offset\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "offset",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Page portion of resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#page\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Reset cache (if was enabled). <a href=\"https://github.com/nestjsx/crud/wiki/Requests#cache\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "cache",
+                        "required": false,
+                        "schema": {
+                            "maximum": 1,
+                            "minimum": 0,
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/GetManyPatientResponseDto"
+                                        },
+                                        {
+                                            "items": {
+                                                "$ref": "#/components/schemas/Patient"
+                                            },
+                                            "type": "array"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "description": "Get many base response"
+                    }
+                },
+                "summary": "Retrieve multiple Patients"
+            },
+            "post": {
+                "operationId": "createOneBasePatientsControllerPatient",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Patient"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Patient"
+                                }
+                            }
+                        },
+                        "description": "Get create one base response"
+                    }
+                },
+                "summary": "Create a single Patient"
+            }
+        },
+        "/patients/bulk": {
+            "post": {
+                "operationId": "createManyBasePatientsControllerPatient",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateManyPatientDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Patient"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": "Get create many base response"
+                    }
+                },
+                "summary": "Create multiple Patients"
+            }
+        },
+        "/patients/{id}": {
+            "delete": {
+                "operationId": "deleteOneBasePatientsControllerPatient",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete one base response"
+                    }
+                },
+                "summary": "Delete a single Patient"
+            },
+            "get": {
+                "operationId": "getOneBasePatientsControllerPatient",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "description": "Selects resource fields. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#select\" target=\"_blank\">Docs</a>",
+                        "explode": false,
+                        "in": "query",
+                        "name": "fields",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds relational resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#join\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "join",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Reset cache (if was enabled). <a href=\"https://github.com/nestjsx/crud/wiki/Requests#cache\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "cache",
+                        "required": false,
+                        "schema": {
+                            "maximum": 1,
+                            "minimum": 0,
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Patient"
+                                }
+                            }
+                        },
+                        "description": "Get one base response"
+                    }
+                },
+                "summary": "Retrieve a single Patient"
+            },
+            "patch": {
+                "operationId": "updateOneBasePatientsControllerPatient",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Patient"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Patient"
+                                }
+                            }
+                        },
+                        "description": "Response"
+                    }
+                },
+                "summary": "Update a single Patient"
+            },
+            "put": {
+                "operationId": "replaceOneBasePatientsControllerPatient",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Patient"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Patient"
+                                }
+                            }
+                        },
+                        "description": "Response"
+                    }
+                },
+                "summary": "Replace a single Patient"
+            }
+        },
+        "/recipes": {
+            "get": {
+                "operationId": "getManyBaseRecipesControllerRecipe",
+                "parameters": [
+                    {
+                        "description": "Selects resource fields. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#select\" target=\"_blank\">Docs</a>",
+                        "explode": false,
+                        "in": "query",
+                        "name": "fields",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds search condition. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#search\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "s",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Adds filter condition. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#filter\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "filter",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds OR condition. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#or\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "or",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds sort by field. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#sort\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "sort",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds relational resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#join\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "join",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Limit amount of resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#limit\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Offset amount of resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#offset\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "offset",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Page portion of resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#page\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "Reset cache (if was enabled). <a href=\"https://github.com/nestjsx/crud/wiki/Requests#cache\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "cache",
+                        "required": false,
+                        "schema": {
+                            "maximum": 1,
+                            "minimum": 0,
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/GetManyRecipeResponseDto"
+                                        },
+                                        {
+                                            "items": {
+                                                "$ref": "#/components/schemas/Recipe"
+                                            },
+                                            "type": "array"
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "description": "Get many base response"
+                    }
+                },
+                "summary": "Retrieve multiple Recipes"
+            },
+            "post": {
+                "operationId": "createOneBaseRecipesControllerRecipe",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Recipe"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Recipe"
+                                }
+                            }
+                        },
+                        "description": "Get create one base response"
+                    }
+                },
+                "summary": "Create a single Recipe"
+            }
+        },
+        "/recipes/bulk": {
+            "post": {
+                "operationId": "createManyBaseRecipesControllerRecipe",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateManyRecipeDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Recipe"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        },
+                        "description": "Get create many base response"
+                    }
+                },
+                "summary": "Create multiple Recipes"
+            }
+        },
+        "/recipes/{id}": {
+            "delete": {
+                "operationId": "deleteOneBaseRecipesControllerRecipe",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete one base response"
+                    }
+                },
+                "summary": "Delete a single Recipe"
+            },
+            "get": {
+                "operationId": "getOneBaseRecipesControllerRecipe",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "description": "Selects resource fields. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#select\" target=\"_blank\">Docs</a>",
+                        "explode": false,
+                        "in": "query",
+                        "name": "fields",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Adds relational resources. <a href=\"https://github.com/nestjsx/crud/wiki/Requests#join\" target=\"_blank\">Docs</a>",
+                        "explode": true,
+                        "in": "query",
+                        "name": "join",
+                        "required": false,
+                        "schema": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        "style": "form"
+                    },
+                    {
+                        "description": "Reset cache (if was enabled). <a href=\"https://github.com/nestjsx/crud/wiki/Requests#cache\" target=\"_blank\">Docs</a>",
+                        "in": "query",
+                        "name": "cache",
+                        "required": false,
+                        "schema": {
+                            "maximum": 1,
+                            "minimum": 0,
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Recipe"
+                                }
+                            }
+                        },
+                        "description": "Get one base response"
+                    }
+                },
+                "summary": "Retrieve a single Recipe"
+            },
+            "patch": {
+                "operationId": "updateOneBaseRecipesControllerRecipe",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Recipe"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Recipe"
+                                }
+                            }
+                        },
+                        "description": "Response"
+                    }
+                },
+                "summary": "Update a single Recipe"
+            },
+            "put": {
+                "operationId": "replaceOneBaseRecipesControllerRecipe",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Recipe"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Recipe"
+                                }
+                            }
+                        },
+                        "description": "Response"
+                    }
+                },
+                "summary": "Replace a single Recipe"
+            }
+        }
+    },
+    "servers": [],
+    "tags": []
+}

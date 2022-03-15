@@ -8,10 +8,10 @@ import { RecipesModule } from './recipes/recipes.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
+      host: '10.48.16.4',
       database: 'postgres',
       username: 'postgres',
-      password: 'admin',
+      password: 'postgres',
       port: 5432,
       entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,

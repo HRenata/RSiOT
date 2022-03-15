@@ -1,0 +1,11 @@
+server {
+listen: 80;
+server_name: 34.116.190.231;
+
+location / {
+
+proxy_pass 10.186.0.2:3000;
+
+}
+}
+
